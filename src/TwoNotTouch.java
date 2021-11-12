@@ -1,3 +1,7 @@
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 public class TwoNotTouch {
 
     //***
@@ -208,15 +212,27 @@ public class TwoNotTouch {
         //***     char grid is passed to the methods.
         //*** For example: oneStarGridInvalidCageOnly or twoStarGridInvalidCageOnly as used below.
         //***
-        gridPrint(oneStarGridInvalidCageOnly);
+        gridPrint(oneStarGridInvalidRow);
         System.out.println();
 
-        processErrorCode(gridValid(oneStarGridInvalidCageOnly, 1, ONE_STAR_NUMBER_CAGES));
+        processErrorCode(gridValid(oneStarGridInvalidRow, 1, ONE_STAR_NUMBER_CAGES));
 
-        gridPrint(twoStarGridInvalidCageOnly);
+        gridPrint(twoStarGridInvalidRow);
         System.out.println();
 
-        processErrorCode(gridValid(twoStarGridInvalidCageOnly, 2, TWO_STAR_NUMBER_CAGES));
+        processErrorCode(gridValid(twoStarGridInvalidRow, 2, TWO_STAR_NUMBER_CAGES));
+
+
+
+        gridPrint(oneStarGridInvalidColumn);
+        System.out.println();
+
+        processErrorCode(gridValid(oneStarGridInvalidColumn, 1, ONE_STAR_NUMBER_CAGES));
+
+        gridPrint(twoStarGridInvalidColumn);
+        System.out.println();
+
+        processErrorCode(gridValid(twoStarGridInvalidColumn, 2, TWO_STAR_NUMBER_CAGES));
         //***
         //***
         //***
@@ -308,19 +324,23 @@ public class TwoNotTouch {
         //***
 
         while (isValid && row < grid.length) {
-            while (isValid && col < grid[row].length) {
 
-                //***
-                //*** Write code to check the constraint that there cannot be
-                //***     more than parameter variable "stars" number of stars
-                //***      in a given row.
-                //***
-                if (STAR > grid[row][stars].length){
-                    errorCode = ERROR_CODE_INCORRECT_ROW_COUNT;
-                }
-                //*** If this constraint is violated, then set the variable
-                //***     "errorCode" to ERROR_CODE_INCORRECT_ROW_COUNT
-                //***
+            //***
+            //*** Write code to check the constraint that there cannot be
+            //***     more than parameter variable "stars" number of stars
+            //***      in a given row.
+            //***
+
+            //*** If this constraint is violated, then set the variable
+            //***     "errorCode" to ERROR_CODE_INCORRECT_ROW_COUNT
+            //***
+            if (violatesNumberofStars(grid[row], stars)) {
+                isValid = false;
+                errorCode = ERROR_CODE_INCORRECT_ROW_COUNT;
+                // error
+            }
+
+            while (isValid && col < grid[row].length) {
 
                 //***
                 //*** Write code to check the constraint that there cannot be
@@ -330,9 +350,14 @@ public class TwoNotTouch {
                 //*** If this constraint is violated, then set the variable
                 //***     "errorCode" to ERROR_CODE_INCORRECT_COLUMN_COUNT
                 //***
-                if(STAR > grid[col][stars].length){
+                char[][] column = getColumn(grid, col);
+                if (violatesNumberofStars(column, stars)) {
+                    isValid = false;
                     errorCode = ERROR_CODE_INCORRECT_COLUMN_COUNT;
+                    // error
                 }
+
+
                 //***
                 //*** Write code to check the constraint that there cannot be direct
                 //***     contact between two stars horizontally (left or right).
@@ -340,6 +365,21 @@ public class TwoNotTouch {
                 //*** If this constraint is violated, then set the variable
                 //***     "errorCode" to ERROR_CODE_HORIZONTAL_CONTACT
                 //***
+
+                // kemny: for any entry that has a star, check if there is a star at col - 1 and
+                // cl + 1, and make sure to check that you're not at the beginning/end of a row
+                // (in other words row cannot go below 0, or above the length of a row
+                // int row = 0, col = 0;
+                // char[] entry = grid[row][col];
+                // if (hasStar(entry)) {
+                //   if (col != 0) {
+                //        // left
+                //        if (hasStar(grid[row][col -1] {
+                //
+                //        }
+                //     )
+                // }
+                // if (col > grid[row].length
 
 
                 //***
@@ -350,6 +390,8 @@ public class TwoNotTouch {
                 //***     "errorCode" to ERROR_CODE_VERTICAL_CONTACT
                 //***
 
+                // kemny same as above but check star at row - 1 and row + 1
+
                 //***
                 //*** Write code to check the constraint that there cannot be direct
                 //***     contact between two stars in the four diagonal directions.
@@ -357,6 +399,9 @@ public class TwoNotTouch {
                 //*** If this constraint is violated, then set the variable
                 //***     "errorCode" to ERROR_CODE_DIAGONAL_CONTACT
                 //***
+
+                // kenny: same as above but check star at col - 1 & row -1, col - 1 and row + 1,
+                // col + 1 and row -1, and col + 1 and row + 1
 
                 // Accumulates the count of stars by cage and stores the numbers
                 //     in the cageCount array to be processed outside this loop.
@@ -387,4 +432,29 @@ public class TwoNotTouch {
 
         return errorCode;
     }
+
+    private static boolean hasStar(char[] entry) {
+        return entry[CHAR_POS] == STAR;
+    }
+
+    private static boolean violatesNumberofStars(char[][] toTest, int maxStars) {
+        int rowStars = 0;
+        // step through each char[] and count stars
+        for (char[] c : toTest) {
+            if (hasStar(c)) {
+                rowStars++;
+            }
+        }
+        return rowStars > maxStars;
+    }
+
+    public static char[][] getColumn(char[][][] grid, int index){
+        char[][] column = new char[grid[0].length][grid[0][0].length];
+        for(int i = 0; i < column.length; i++){
+            column[i] = grid[i][index];
+        }
+        return column;
+    }
+
+
 }
