@@ -2,7 +2,7 @@ public class TwoNotTouch {
 
     //***
     //*** You MUST use this code.
-    //*** You CANNOT CHANGE any of it.
+    //*** You CANNOT CHANGE any of it
     //***
     final static int ONE_STAR_NUMBER_CAGES = 8;
     final static int TWO_STAR_NUMBER_CAGES = 10;
