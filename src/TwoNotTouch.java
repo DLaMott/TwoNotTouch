@@ -1,3 +1,10 @@
+// Created by Dylan LaMott
+// Used to validate and test TwoNotTouch star puzzles
+// Currently all provided test cases run efficiently and each invalid and valid cases are caught.
+//Changes made: Added user menu. Also added methods for testing cages, rows, columns, horizontal, vertical, and stars.
+
+import java.util.Scanner;
+
 public class TwoNotTouch {
 
     //***
@@ -207,64 +214,136 @@ public class TwoNotTouch {
         //*** The only change that you can make is which
         //***     char grid is passed to the methods.
         //*** For example: oneStarGridInvalidCageOnly or twoStarGridInvalidCageOnly as used below.
-        //***
+
+        // boolean added to run while loop for user menu
+        boolean validEntry = true;
+
+        //While loop for user selection of puzzles to test
+        while (validEntry) {
+            //Scanner opens to catch user entry
+            Scanner scanner = new Scanner(System.in);
+            // User menu
+            System.out.println("Please select an option to test \n1. OneStarGridValid1" +
+                    "\n2. OneStarGirdValid2 \n3. oneStarGridInvalidRow\n4. OneStarGridInvalidColumn\n5. OneStarGridInvalidDiagonal"
+                    + "\n6. OneStarGridInvalidCageOnly\n7. twoStarGridValid1\n8. twoStarGridValid2\n9. twoStarGridInvalidRow" +
+                    "\n10. twoStarGridInvalidColumn\n11. twoStarGridInvalidHorizontal\n12. twoStarGridInvalidVertical" +
+                    "\n13. twoStarGridInValidDiagonal\n14. twoStarGridInvalidCageOnly\n15. EXIT\nEnter number to test: "
+            );
+
+            String input = scanner.nextLine();
 
 
-        gridPrint(oneStarGridInvalidRow);
-        System.out.println();
+            // Switch statement cases are based on the above user menu in the same order
+            switch (input) {
+                case "1":
+                    gridPrint(oneStarGridValid1);
+                    System.out.println();
 
-        processErrorCode(gridValid(oneStarGridInvalidRow, 1, ONE_STAR_NUMBER_CAGES));
+                    processErrorCode(gridValid(oneStarGridValid1, 1, ONE_STAR_NUMBER_CAGES));
+                    System.out.println();
+                    break;
+                case "2":
+                    gridPrint(oneStarGridValid2);
+                    System.out.println();
 
-        gridPrint(twoStarGridInvalidRow);
-        System.out.println();
+                    processErrorCode(gridValid(oneStarGridValid2, 1, ONE_STAR_NUMBER_CAGES));
+                    break;
+                case "3":
+                    gridPrint(oneStarGridInvalidRow);
+                    System.out.println();
 
-        processErrorCode(gridValid(twoStarGridInvalidRow, 2, TWO_STAR_NUMBER_CAGES));
+                    processErrorCode(gridValid(oneStarGridInvalidRow, 1, ONE_STAR_NUMBER_CAGES));
+                    System.out.println();
+                    break;
+                case "4":
+                    gridPrint(oneStarGridInvalidColumn);
+                    System.out.println();
 
+                    processErrorCode(gridValid(oneStarGridInvalidColumn, 1, ONE_STAR_NUMBER_CAGES));
+                    System.out.println();
+                    break;
+                case "5":
+                    gridPrint(oneStarGridInValidDiagonal);
+                    System.out.println();
 
-        gridPrint(oneStarGridInvalidColumn);
-        System.out.println();
+                    processErrorCode(gridValid(oneStarGridInValidDiagonal, 1, ONE_STAR_NUMBER_CAGES));
+                    System.out.println();
+                    break;
+                case "6":
+                    gridPrint(oneStarGridInvalidCageOnly);
+                    System.out.println();
 
-        processErrorCode(gridValid(oneStarGridInvalidColumn, 1, ONE_STAR_NUMBER_CAGES));
+                    processErrorCode(gridValid(oneStarGridInvalidCageOnly, 1, ONE_STAR_NUMBER_CAGES));
+                    System.out.println();
+                    break;
+                case "7":
+                    gridPrint(twoStarGridValid1);
+                    System.out.println();
 
-        gridPrint(twoStarGridInvalidColumn);
-        System.out.println();
+                    processErrorCode(gridValid(twoStarGridValid1, 2, TWO_STAR_NUMBER_CAGES));
+                    System.out.println();
+                    break;
+                case "8":
+                    gridPrint(twoStarGridValid2);
+                    System.out.println();
 
-        processErrorCode(gridValid(twoStarGridInvalidColumn, 2, TWO_STAR_NUMBER_CAGES));
+                    processErrorCode(gridValid(twoStarGridValid2, 2, TWO_STAR_NUMBER_CAGES));
+                    System.out.println();
+                    break;
+                case "9":
+                    gridPrint(twoStarGridInvalidRow);
+                    System.out.println();
 
-        gridPrint(twoStarGridInvalidHorizontal);
-        System.out.println();
-        processErrorCode(gridValid(twoStarGridInvalidHorizontal, 2, TWO_STAR_NUMBER_CAGES));
+                    processErrorCode(gridValid(twoStarGridInvalidRow, 2, TWO_STAR_NUMBER_CAGES));
+                    System.out.println();
+                    break;
+                case "10":
+                    gridPrint(twoStarGridInvalidColumn);
+                    System.out.println();
 
-        gridPrint(twoStarGridInvalidVertical);
-        System.out.println();
-        processErrorCode(gridValid(twoStarGridInvalidVertical, 2, TWO_STAR_NUMBER_CAGES));
+                    processErrorCode(gridValid(twoStarGridInvalidColumn, 2, TWO_STAR_NUMBER_CAGES));
+                    System.out.println();
+                    break;
+                case "11":
+                    gridPrint(twoStarGridInvalidHorizontal);
+                    System.out.println();
 
+                    processErrorCode(gridValid(twoStarGridInvalidHorizontal, 2, TWO_STAR_NUMBER_CAGES));
+                    System.out.println();
+                    break;
+                case "12":
+                    gridPrint(twoStarGridInvalidVertical);
+                    System.out.println();
 
-        gridPrint(twoStarGridInValidDiagonal);
-        System.out.println();
-        processErrorCode(gridValid(twoStarGridInValidDiagonal, 2, TWO_STAR_NUMBER_CAGES));
+                    processErrorCode(gridValid(twoStarGridInvalidVertical, 2, TWO_STAR_NUMBER_CAGES));
+                    System.out.println();
+                    break;
+                case "13":
+                    gridPrint(twoStarGridInValidDiagonal);
+                    System.out.println();
 
-        gridPrint(oneStarGridInValidDiagonal);
-        System.out.println();
+                    processErrorCode(gridValid(twoStarGridInValidDiagonal, 2, TWO_STAR_NUMBER_CAGES));
+                    System.out.println();
+                    break;
+                case "14":
+                    gridPrint(twoStarGridInvalidCageOnly);
+                    System.out.println();
 
-        processErrorCode(gridValid(oneStarGridInValidDiagonal, 1, ONE_STAR_NUMBER_CAGES));
-
-        // Failing ln 409 possible method issues?
-        gridPrint(twoStarGridValid1);
-        System.out.println();
-        processErrorCode(gridValid(twoStarGridValid1, 2, TWO_STAR_NUMBER_CAGES));
-
-        // Also will fail if valid solution is commented out
-        gridPrint(twoStarGridInvalidCageOnly);
-        System.out.println();
-        processErrorCode(gridValid(twoStarGridInvalidCageOnly, 2, TWO_STAR_NUMBER_CAGES));
-
-
-
-
-        //***
-        //***
-        //***
+                    processErrorCode(gridValid(twoStarGridInvalidCageOnly, 2, TWO_STAR_NUMBER_CAGES));
+                    System.out.println();
+                    break;
+                case "15":
+                    System.out.println("Good Bye!");
+                    validEntry = false;
+                    scanner.close();
+                    break;
+                default:
+                    System.out.println("You entered an incorrect entry!");
+                    System.out.println("Please enter a correct number for testing!");
+                    System.out.println();
+                    break;
+            }
+        }
     }
 
     //***
@@ -373,7 +452,6 @@ public class TwoNotTouch {
             while (isValid && col < grid[row].length) {
 
 
-
                 //***
                 //*** Write code to check the constraint that there cannot be
                 //***     more than parameter variable "stars" number of stars
@@ -385,7 +463,7 @@ public class TwoNotTouch {
                 /// Solved
                 // Create array of columns from grid
                 char[][] column = getColumn(grid, col);
-                // Pass function to determine column count
+                // Pass function to determine column count and if star violation occurs
                 if (violatesNumberofStars(column, stars)) {
                     isValid = false;
                     errorCode = ERROR_CODE_INCORRECT_COLUMN_COUNT;
@@ -405,13 +483,14 @@ public class TwoNotTouch {
 
                 // Create array containing grid for usage of hasStar method
                 char[] entry = grid[row][col];
+                // If has star perform respective checks based on position within array to prevent out of bounds
                 if (hasStar(entry)) {
-                    //Left
+                    //calls method to validate star and moves to the left until end of array
                     if (hasSpaceToLeft(col) && hasStar(grid[row][col - 1])) {
                         isValid = false;
                         errorCode = ERROR_CODE_HORIZONTAL_CONTACT;
                     }
-                    // Right
+                    // Calls method to validate star and moves to the right until the end of array
                     if (hasSpaceToRight(grid, row, col) && hasStar(grid[row][col + 1])) {
                         isValid = false;
                         errorCode = ERROR_CODE_HORIZONTAL_CONTACT;
@@ -428,14 +507,14 @@ public class TwoNotTouch {
                 //*** SOLVED
 
                 // If else statement for searching star positions vertically.
-                // Methods I have written are called to prevent index out of bound errors when checking the grid.
+                // If has star perform respective checks based on position within array to prevent out of bounds
                 if (hasStar(entry)) {
-                    //UP
+                    // Checks row position throughout the array moving up and determines star position
                     if (hasSpaceUp(row) && hasStar(grid[row - 1][col])) {
                         isValid = false;
                         errorCode = ERROR_CODE_VERTICAL_CONTACT;
                     }
-                    // DOWN
+                    // Checks row position throughout the array moving down and determines star position
                     if (hasSpaceBelow(grid, row) && hasStar(grid[row + 1][col])) {
                         isValid = false;
                         errorCode = ERROR_CODE_VERTICAL_CONTACT;
@@ -453,7 +532,7 @@ public class TwoNotTouch {
 
 
                 // If else statement for searching star positions diagonally.
-                // Methods I have written are called to prevent index out of bound errors when checking the grid.
+                // Functions used are the same except we will use all four to determine positions
                 if (hasStar(entry)) {
                     // Up to the left
                     if (hasSpaceUp(row) && hasSpaceToLeft(col) && hasStar(grid[row - 1][col - 1])) {
@@ -488,7 +567,6 @@ public class TwoNotTouch {
                 col++;
 
 
-
             }
 
             col = 0;
@@ -517,7 +595,7 @@ public class TwoNotTouch {
         return entry[CHAR_POS] == STAR;
     }
 
-    // Function to assist checking is there is a multitude of starts within grid.
+    // Function to assist checking is there a multitude of starts within grid.
     private static boolean violatesNumberofStars(char[][] toTest, int maxStars) {
         // Counter for stars
         int rowStars = 0;
@@ -534,15 +612,16 @@ public class TwoNotTouch {
     // Function for returning the columns within the grid for processing.
     // Reduces having to pass multiple for loops throughout the program.
     public static char[][] getColumn(char[][][] grid, int index) {
+        // Create array to contain columns within grid starting at index 0
         char[][] column = new char[grid[0].length][grid[0][0].length];
+        // For columns in grid add columns to new column array for processing outside this method
         for (int i = 0; i < column.length; i++) {
             column[i] = grid[i][index];
         }
         return column;
     }
 
-    // Current confusion should we not check left as column -1 and right as column +1
-    // Up as row -1 and down as row +1? Currently it appears left and right is checked by rows
+    // These functions were added to eliminate continued hard coding and or unneeded repetition
 
     // Function to determine if there is space right to the respective array position through rows
     private static boolean hasSpaceToRight(char[][][] grid, int row, int col) {
