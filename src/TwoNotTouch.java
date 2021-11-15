@@ -407,13 +407,12 @@ public class TwoNotTouch {
                 char[] entry = grid[row][col];
                 if (hasStar(entry)) {
                     //Left
-                    if (hasSpaceToLeft(grid, col) && hasStar(grid[row][col - 1])) {
+                    if (hasSpaceToLeft(col) && hasStar(grid[row][col - 1])) {
                         isValid = false;
                         errorCode = ERROR_CODE_HORIZONTAL_CONTACT;
                     }
                     // Right
-
-                    if (hasSpaceToRight(grid, col) && hasStar(grid[row][col + 1])) {
+                    if (hasSpaceToRight(grid, row, col) && hasStar(grid[row][col + 1])) {
                         isValid = false;
                         errorCode = ERROR_CODE_HORIZONTAL_CONTACT;
                     }
@@ -432,7 +431,7 @@ public class TwoNotTouch {
                 // Methods I have written are called to prevent index out of bound errors when checking the grid.
                 if (hasStar(entry)) {
                     //UP
-                    if (hasSpaceUp(grid, row) && hasStar(grid[row - 1][col])) {
+                    if (hasSpaceUp(row) && hasStar(grid[row - 1][col])) {
                         isValid = false;
                         errorCode = ERROR_CODE_VERTICAL_CONTACT;
                     }
@@ -457,23 +456,23 @@ public class TwoNotTouch {
                 // Methods I have written are called to prevent index out of bound errors when checking the grid.
                 if (hasStar(entry)) {
                     // Up to the left
-                    if (hasSpaceUp(grid, row) && hasSpaceToLeft(grid, col) && hasStar(grid[row - 1][col - 1])) {
+                    if (hasSpaceUp(row) && hasSpaceToLeft(col) && hasStar(grid[row - 1][col - 1])) {
                         isValid = false;
                         errorCode = ERROR_CODE_DIAGONAL_CONTACT;
                     }
                     // UP to the right
-                    else if (hasSpaceUp(grid, row) && hasSpaceToRight(grid, col) && hasStar(grid[row - 1][col + 1])) {
+                    else if (hasSpaceUp(row) && hasSpaceToRight(grid, row, col) && hasStar(grid[row - 1][col + 1])) {
                         isValid = false;
                         errorCode = ERROR_CODE_DIAGONAL_CONTACT;
                     }
                     //Down to the right
-                    else if (hasSpaceBelow(grid, row) && hasSpaceToRight(grid, col) && hasStar(grid[row + 1][col + 1])) {
+                    else if (hasSpaceBelow(grid, row) && hasSpaceToRight(grid, row, col) && hasStar(grid[row + 1][col + 1])) {
                         isValid = false;
                         errorCode = ERROR_CODE_DIAGONAL_CONTACT;
 
                     }
                     //Down to the left
-                    else if (hasSpaceBelow(grid, row) && hasSpaceToLeft(grid, col) && hasStar(grid[row + 1][col - 1])) {
+                    else if (hasSpaceBelow(grid, row) && hasSpaceToLeft(col) && hasStar(grid[row + 1][col - 1])) {
                         isValid = false;
                         errorCode = ERROR_CODE_DIAGONAL_CONTACT;
 
@@ -542,34 +541,27 @@ public class TwoNotTouch {
         return column;
     }
 
-
     // Current confusion should we not check left as column -1 and right as column +1
     // Up as row -1 and down as row +1? Currently it appears left and right is checked by rows
 
     // Function to determine if there is space right to the respective array position through rows
-    public static boolean hasSpaceToRight(char[][][] grid, int row) {
-
-        return row < grid[row].length;
+    private static boolean hasSpaceToRight(char[][][] grid, int row, int col) {
+        return col + 1 < grid[row].length;
     }
 
     // Determine if there is space left to the respective array position through rows
-    public static boolean hasSpaceToLeft(char[][][] grid, int row) {
-
+    private static boolean hasSpaceToLeft(int row) {
         return row != 0;
     }
 
     // Determine if there is space above the respective array position through columns
-    public static boolean hasSpaceUp(char[][][] grid, int col) {
-
+    private static boolean hasSpaceUp(int col) {
         return col != 0;
     }
 
     // Determine if there is space below the respective array position through columns
-    public static boolean hasSpaceBelow(char[][][] grid, int col) {
+    private static boolean hasSpaceBelow(char[][][] grid, int col) {
         char[][] column1 = getColumn(grid, col);
-
-        return col < column1.length;
+        return col + 1 < column1.length;
     }
-
-
 }
