@@ -1,4 +1,4 @@
-public class TwoNotTouch {
+public class TwoNotTouchSchoolCopy {
 
     //***
     //*** You MUST use this code.
@@ -208,60 +208,20 @@ public class TwoNotTouch {
         //***     char grid is passed to the methods.
         //*** For example: oneStarGridInvalidCageOnly or twoStarGridInvalidCageOnly as used below.
         //***
-
-
-        gridPrint(oneStarGridInvalidRow);
+        gridPrint(oneStarGridInvalidCageOnly);
         System.out.println();
 
-        processErrorCode(gridValid(oneStarGridInvalidRow, 1, ONE_STAR_NUMBER_CAGES));
+        processErrorCode(gridValid(oneStarGridInvalidCageOnly, 1, ONE_STAR_NUMBER_CAGES));
 
-        gridPrint(twoStarGridInvalidRow);
-        System.out.println();
-
-        processErrorCode(gridValid(twoStarGridInvalidRow, 2, TWO_STAR_NUMBER_CAGES));
-
-
-        gridPrint(oneStarGridInvalidColumn);
-        System.out.println();
-
-        processErrorCode(gridValid(oneStarGridInvalidColumn, 1, ONE_STAR_NUMBER_CAGES));
-
-        gridPrint(twoStarGridInvalidColumn);
-        System.out.println();
-
-        processErrorCode(gridValid(twoStarGridInvalidColumn, 2, TWO_STAR_NUMBER_CAGES));
-
-        gridPrint(twoStarGridInvalidHorizontal);
-        System.out.println();
-        processErrorCode(gridValid(twoStarGridInvalidHorizontal, 2, TWO_STAR_NUMBER_CAGES));
-
-        gridPrint(twoStarGridInvalidVertical);
-        System.out.println();
-        processErrorCode(gridValid(twoStarGridInvalidVertical, 2, TWO_STAR_NUMBER_CAGES));
-
-
-        gridPrint(twoStarGridInValidDiagonal);
-        System.out.println();
-        processErrorCode(gridValid(twoStarGridInValidDiagonal, 2, TWO_STAR_NUMBER_CAGES));
-
-        gridPrint(oneStarGridInValidDiagonal);
-        System.out.println();
-
-        processErrorCode(gridValid(oneStarGridInValidDiagonal, 1, ONE_STAR_NUMBER_CAGES));
-
-        // Failing ln 409 possible method issues?
-        gridPrint(twoStarGridValid1);
-        System.out.println();
-        processErrorCode(gridValid(twoStarGridValid1, 2, TWO_STAR_NUMBER_CAGES));
-
-        // Also will fail if valid solution is commented out
         gridPrint(twoStarGridInvalidCageOnly);
         System.out.println();
+
         processErrorCode(gridValid(twoStarGridInvalidCageOnly, 2, TWO_STAR_NUMBER_CAGES));
 
+        gridPrint(twoStarGridValid1);
+        System.out.println();
 
-
-
+        processErrorCode(gridValid(twoStarGridValid1, 2, TWO_STAR_NUMBER_CAGES));
         //***
         //***
         //***
@@ -284,8 +244,8 @@ public class TwoNotTouch {
         System.out.println();
         System.out.print("\t");
 
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j < grid[i].length; j++) {
                 System.out.print(grid[i][j][CHAR_POS] + "" + grid[i][j][CAGE_POS] + "\t");
             }
 
@@ -353,26 +313,16 @@ public class TwoNotTouch {
         //***
 
         while (isValid && row < grid.length) {
-
-            //***
-            //*** Write code to check the constraint that there cannot be
-            //***     more than parameter variable "stars" number of stars
-            //***      in a given row.
-            //***
-
-            //*** If this constraint is violated, then set the variable
-            //***     "errorCode" to ERROR_CODE_INCORRECT_ROW_COUNT
-            /// Solved
-            //***
-            if (violatesNumberofStars(grid[row], stars)) {
-                isValid = false;
-                errorCode = ERROR_CODE_INCORRECT_ROW_COUNT;
-                // error
-            }
-
             while (isValid && col < grid[row].length) {
 
-
+                //***
+                //*** Write code to check the constraint that there cannot be
+                //***     more than parameter variable "stars" number of stars
+                //***      in a given row.
+                //***
+                //*** If this constraint is violated, then set the variable
+                //***     "errorCode" to ERROR_CODE_INCORRECT_ROW_COUNT
+                //***
 
                 //***
                 //*** Write code to check the constraint that there cannot be
@@ -382,16 +332,6 @@ public class TwoNotTouch {
                 //*** If this constraint is violated, then set the variable
                 //***     "errorCode" to ERROR_CODE_INCORRECT_COLUMN_COUNT
                 //***
-                /// Solved
-                // Create array of columns from grid
-                char[][] column = getColumn(grid, col);
-                // Pass function to determine column count
-                if (violatesNumberofStars(column, stars)) {
-                    isValid = false;
-                    errorCode = ERROR_CODE_INCORRECT_COLUMN_COUNT;
-                    // error
-                }
-
 
                 //***
                 //*** Write code to check the constraint that there cannot be direct
@@ -399,26 +339,7 @@ public class TwoNotTouch {
                 //***
                 //*** If this constraint is violated, then set the variable
                 //***     "errorCode" to ERROR_CODE_HORIZONTAL_CONTACT
-                //*** SOLVED
-                // If else statement for searching star positions diagonally.
-                // Methods I have written are called to prevent index out of bound errors when checking the grid.
-
-                // Create array containing grid for usage of hasStar method
-                char[] entry = grid[row][col];
-                if (hasStar(entry)) {
-                    //Left
-                    if (hasSpaceToLeft(grid, col) && hasStar(grid[row][col - 1])) {
-                        isValid = false;
-                        errorCode = ERROR_CODE_HORIZONTAL_CONTACT;
-                    }
-                    // Right
-
-                    if (hasSpaceToRight(grid, col) && hasStar(grid[row][col + 1])) {
-                        isValid = false;
-                        errorCode = ERROR_CODE_HORIZONTAL_CONTACT;
-                    }
-                }
-
+                //***
 
                 //***
                 //*** Write code to check the constraint that there cannot be direct
@@ -426,23 +347,7 @@ public class TwoNotTouch {
                 //***
                 //*** If this constraint is violated, then set the variable
                 //***     "errorCode" to ERROR_CODE_VERTICAL_CONTACT
-                //*** SOLVED
-
-                // If else statement for searching star positions vertically.
-                // Methods I have written are called to prevent index out of bound errors when checking the grid.
-                if (hasStar(entry)) {
-                    //UP
-                    if (hasSpaceUp(grid, row) && hasStar(grid[row - 1][col])) {
-                        isValid = false;
-                        errorCode = ERROR_CODE_VERTICAL_CONTACT;
-                    }
-                    // DOWN
-                    if (hasSpaceBelow(grid, row) && hasStar(grid[row + 1][col])) {
-                        isValid = false;
-                        errorCode = ERROR_CODE_VERTICAL_CONTACT;
-                    }
-
-                }
+                //***
 
                 //***
                 //*** Write code to check the constraint that there cannot be direct
@@ -450,45 +355,14 @@ public class TwoNotTouch {
                 //***
                 //*** If this constraint is violated, then set the variable
                 //***     "errorCode" to ERROR_CODE_DIAGONAL_CONTACT
-                //*** SOLVED
-
-
-                // If else statement for searching star positions diagonally.
-                // Methods I have written are called to prevent index out of bound errors when checking the grid.
-                if (hasStar(entry)) {
-                    // Up to the left
-                    if (hasSpaceUp(grid, row) && hasSpaceToLeft(grid, col) && hasStar(grid[row - 1][col - 1])) {
-                        isValid = false;
-                        errorCode = ERROR_CODE_DIAGONAL_CONTACT;
-                    }
-                    // UP to the right
-                    else if (hasSpaceUp(grid, row) && hasSpaceToRight(grid, col) && hasStar(grid[row - 1][col + 1])) {
-                        isValid = false;
-                        errorCode = ERROR_CODE_DIAGONAL_CONTACT;
-                    }
-                    //Down to the right
-                    else if (hasSpaceBelow(grid, row) && hasSpaceToRight(grid, col) && hasStar(grid[row + 1][col + 1])) {
-                        isValid = false;
-                        errorCode = ERROR_CODE_DIAGONAL_CONTACT;
-
-                    }
-                    //Down to the left
-                    else if (hasSpaceBelow(grid, row) && hasSpaceToLeft(grid, col) && hasStar(grid[row + 1][col - 1])) {
-                        isValid = false;
-                        errorCode = ERROR_CODE_DIAGONAL_CONTACT;
-
-                    }
-                }
+                //***
 
                 // Accumulates the count of stars by cage and stores the numbers
                 //     in the cageCount array to be processed outside this loop.
-                if (grid[row][col][CHAR_POS] == STAR){
-                    cageCount[grid[row][col][CAGE_POS] - ASCII_NUM_INDEX]++;
-                }
+                if (grid[row][col][CHAR_POS] == STAR)
+                    cageCount[grid[row][col][CAGE_POS]-ASCII_NUM_INDEX]++;
 
                 col++;
-
-
 
             }
 
@@ -512,64 +386,4 @@ public class TwoNotTouch {
 
         return errorCode;
     }
-
-    // Returns array of star positions
-    private static boolean hasStar(char[] entry) {
-        return entry[CHAR_POS] == STAR;
-    }
-
-    // Function to assist checking is there is a multitude of starts within grid.
-    private static boolean violatesNumberofStars(char[][] toTest, int maxStars) {
-        // Counter for stars
-        int rowStars = 0;
-        // step through each char[] and count stars
-        for (char[] c : toTest) {
-            if (hasStar(c)) {
-                rowStars++;
-            }
-        }
-        // Return rowstars if greater than max stars
-        return rowStars > maxStars;
-    }
-
-    // Function for returning the columns within the grid for processing.
-    // Reduces having to pass multiple for loops throughout the program.
-    public static char[][] getColumn(char[][][] grid, int index) {
-        char[][] column = new char[grid[0].length][grid[0][0].length];
-        for (int i = 0; i < column.length; i++) {
-            column[i] = grid[i][index];
-        }
-        return column;
-    }
-
-
-    // Current confusion should we not check left as column -1 and right as column +1
-    // Up as row -1 and down as row +1? Currently it appears left and right is checked by rows
-
-    // Function to determine if there is space right to the respective array position through rows
-    public static boolean hasSpaceToRight(char[][][] grid, int row) {
-
-        return row < grid[row].length;
-    }
-
-    // Determine if there is space left to the respective array position through rows
-    public static boolean hasSpaceToLeft(char[][][] grid, int row) {
-
-        return row != 0;
-    }
-
-    // Determine if there is space above the respective array position through columns
-    public static boolean hasSpaceUp(char[][][] grid, int col) {
-
-        return col != 0;
-    }
-
-    // Determine if there is space below the respective array position through columns
-    public static boolean hasSpaceBelow(char[][][] grid, int col) {
-        char[][] column1 = getColumn(grid, col);
-
-        return col < column1.length;
-    }
-
-
 }
